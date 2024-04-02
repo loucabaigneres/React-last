@@ -13,7 +13,7 @@ import { Header } from "../components/Header";
 import Modal from "react-native-modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import colors from "../styles/variables";
+import {colors} from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 const createSurvey = (id, question, description) => ({
