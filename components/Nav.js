@@ -25,79 +25,79 @@ const AgendaStack = createStackNavigator();
 const ProjetsStack = createStackNavigator();
 
 const HomeStackScreen = () => {
-    return (
-        <HomeStack.Navigator>
-            <HomeStack.Screen
-                name="dsds"
-                component={HomeScreen}
-                options={{ headerShown: false }}
-            />
-            <HomeStack.Screen
-                name="Projects"
-                component={ProjectsScreen}
-                options={{ headerShown: false }}
-            ></HomeStack.Screen>
-            <HomeStack.Screen
-                name="Contact"
-                component={ContactScreen}
-                options={{ headerShown: false }}
-            />
-            <HomeStack.Screen
-                name="Articles"
-                component={ArticleScreen}
-                options={{ headerShown: false }}
-            />
-            <HomeStack.Screen
-                name="Parametres"
-                component={SettingsScreen}
-                options={{ headerShown: false }}
-            />
-        </HomeStack.Navigator>
-    );
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="dsds"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="Projects"
+        component={ProjectsScreen}
+        options={{ headerShown: false }}
+      ></HomeStack.Screen>
+      <HomeStack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="Articles"
+        component={ArticleScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="Parametres"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+    </HomeStack.Navigator>
+  );
 };
 
 const AgendaStackScreen = () => {
-    return (
-        <AgendaStack.Navigator>
-            <AgendaStack.Screen
-                name="Agendas"
-                component={CalendarScreen}
-                options={{ headerShown: false }}
-            />
-            <AgendaStack.Screen
-                name="Parametres"
-                component={SettingsScreen}
-                options={{ headerShown: false }}
-            />
-        </AgendaStack.Navigator>
-    );
+  return (
+    <AgendaStack.Navigator>
+      <AgendaStack.Screen
+        name="Agendas"
+        component={CalendarScreen}
+        options={{ headerShown: false }}
+      />
+      <AgendaStack.Screen
+        name="Parametres"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+    </AgendaStack.Navigator>
+  );
 };
 
 const ProfileStackScreen = () => {
-    return (
-        <ProfileStack.Navigator>
-            <ProfileStack.Screen
-                name="FranceConnect"
-                component={FranceConnectScreen}
-                options={{ headerShown: false }}
-            />
-            <ProfileStack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{ headerShown: false }}
-            />
-            <ProfileStack.Screen
-                name="Profilsq"
-                component={ProfileScreen}
-                options={{ headerShown: false }}
-            />
-            <ProfileStack.Screen
-                name="Parametres"
-                component={SettingsScreen}
-                options={{ headerShown: false }}
-            />
-        </ProfileStack.Navigator>
-    );
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="FranceConnect"
+        component={FranceConnectScreen}
+        options={{ headerShown: false }}
+      />
+      <ProfileStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <ProfileStack.Screen
+        name="Profilsq"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
+      <ProfileStack.Screen
+        name="Parametres"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+    </ProfileStack.Navigator>
+  );
 };
 
 const SondagesStackScreen = () => {
@@ -118,45 +118,41 @@ const SondagesStackScreen = () => {
 };
 
 const ProjetsStackScreen = () => {
-    return (
-        <ProjetsStack.Navigator>
-            <ProjetsStack.Screen
-                name="Projet"
-                component={ProjetsScreen}
-                options={{ headerShown: false }}
-            />
-            <ProjetsStack.Screen
-                name="Parametres"
-                component={SettingsScreen}
-                options={{ headerShown: false }}
-            />
-        </ProjetsStack.Navigator>
-    );
+  return (
+    <ProjetsStack.Navigator>
+      <ProjetsStack.Screen
+        name="Projet"
+        component={ProjetsScreen}
+        options={{ headerShown: false }}
+      />
+      <ProjetsStack.Screen
+        name="Parametres"
+        component={SettingsScreen}
+        options={{ headerShown: false }}
+      />
+    </ProjetsStack.Navigator>
+  );
 };
 
 const Nav = () => {
-    return (
-        <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color }) => {
-                        let iconName;
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color }) => {
+            let iconName;
 
-                        if (route.name == "Accueil") {
-                            iconName = focused ? "home" : "home-outline";
-                        } else if (route.name == "Sondages") {
-                            iconName = focused
-                                ? "bar-chart"
-                                : "bar-chart-outline";
-                        } else if (route.name == "Agenda") {
-                            iconName = focused
-                                ? "calendar"
-                                : "calendar-outline";
-                        } else if (route.name == "Profil") {
-                            iconName = focused ? "person" : "person-outline";
-                        } else if (route.name == "Projets") {
-                            iconName = focused ? "search" : "search-outline";
-                        }
+            if (route.name == "Accueil") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name == "Sondages") {
+              iconName = focused ? "bar-chart" : "bar-chart-outline";
+            } else if (route.name == "Agenda") {
+              iconName = focused ? "calendar" : "calendar-outline";
+            } else if (route.name == "Profil") {
+              iconName = focused ? "person" : "person-outline";
+            } else if (route.name == "Projets") {
+              iconName = focused ? "search" : "search-outline";
+            }
 
                         return (
                             <Ionicons name={iconName} size={25} color={color} />
