@@ -13,6 +13,10 @@ const headerStyles = {
         justifyContent: "center",
         alignItems: "center",
     },
+    row: {
+        flexDirection: "row",
+        gap: 12,
+    },
     headerIcon: {
         color: colors.text,
     },

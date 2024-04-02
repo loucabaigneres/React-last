@@ -10,7 +10,7 @@ import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { Header } from "../components/Header";
+import { HeaderSecondary } from "../components/Header";
 
 import layoutStyles from "../styles/layoutStyles";
 
@@ -42,32 +42,37 @@ const ContactScreen = ({ navigation }) => {
                 style={styles.back}
                 onPress={() => navigation.goBack()}
             />
-            <Header title="Contact" />
+            <HeaderSecondary title="Contact" />
             <View style={styles.container}>
-                <Picker
-                    selectedValue={selectedValue}
-                    style={styles.inputBig}
-                    itemStyle={{ color: "#F674A2" }}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSelectedValue(itemValue)
-                    }
-                >
-                    <Picker.Item label="Sujet" value="void" />
-                    <Picker.Item label="Horaires" value="js" />
-                    <Picker.Item label="Tarifs" value="ts" />
-                    <Picker.Item label="Autres" value="py" />
-                    <Picker.Item label="Demande de partenariat" value="pyp" />
-                    <Picker.Item label="Demande de stage" value="pys" />
-                    <Picker.Item
-                        label="Demande de renseignements"
-                        value="pyr"
-                    />
-                    <Picker.Item label="Demande de devis" value="pyd" />
-                    <Picker.Item
-                        label="Demande de documentation"
-                        value="pydd"
-                    />
-                </Picker>
+                <View style={styles.pickerContainer}>
+                    <Picker
+                        selectedValue={selectedValue}
+                        style={styles.inputBig}
+                        itemStyle={{ color: "#F674A2" }}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setSelectedValue(itemValue)
+                        }
+                    >
+                        <Picker.Item label="Sujet" value="void" />
+                        <Picker.Item label="Horaires" value="js" />
+                        <Picker.Item label="Tarifs" value="ts" />
+                        <Picker.Item label="Autres" value="py" />
+                        <Picker.Item
+                            label="Demande de partenariat"
+                            value="pyp"
+                        />
+                        <Picker.Item label="Demande de stage" value="pys" />
+                        <Picker.Item
+                            label="Demande de renseignements"
+                            value="pyr"
+                        />
+                        <Picker.Item label="Demande de devis" value="pyd" />
+                        <Picker.Item
+                            label="Demande de documentation"
+                            value="pydd"
+                        />
+                    </Picker>
+                </View>
                 <LinearGradient
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
@@ -142,7 +147,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 16,
         marginTop: 0,
-        // backgroundColor: "#FFFFFF", // Couleur de fond claire
+    },
+    pickerContainer: {
+        borderRadius: 8,
+        overflow: "hidden",
     },
     containerDark: {
         flex: 1,

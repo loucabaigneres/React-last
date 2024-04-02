@@ -4,7 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "../screens/HomeScreen";
-import SurveyScreen from "../screens/SurveysScreen";
+import SurveysScreen from "../screens/SurveysScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -105,7 +105,7 @@ const SondagesStackScreen = () => {
         <SondagesStack.Navigator>
             <SondagesStack.Screen
                 name="Sondage"
-                component={SurveyScreen}
+                component={SurveysScreen}
                 options={{ headerShown: false }}
             />
             <SondagesStack.Screen
@@ -162,6 +162,7 @@ const Nav = () => {
                             <Ionicons name={iconName} size={25} color={color} />
                         );
                     },
+                    tabBarHideOnKeyboard: true,
                     tabBarStyle: {
                         backgroundColor: colors.primary,
                         height: 90,

@@ -2,6 +2,7 @@ import colors from "../variables";
 
 const profileStyles = {
     container: {
+        width: "100%",
         flex: 1,
         alignItems: "center",
         paddingHorizontal: 32,

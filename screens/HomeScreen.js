@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, Linking } from "react-native";
+import {
+    ScrollView,
+    View,
+    Text,
+    TouchableOpacity,
+    Linking,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -36,7 +42,10 @@ const HomeScreen = () => {
     };
 
     return (
-        <View style={layoutStyles.page}>
+        <ScrollView
+            contentContainerStyle={layoutStyles.scrollPage}
+            showsVerticalScrollIndicator={false}
+        >
             <Header title="Ma ville" navigation={navigation} />
             <View style={homeStyles.categories}>
                 <TouchableOpacity onPress={() => handlePress("Projects")}>
@@ -94,8 +103,29 @@ const HomeScreen = () => {
                         Voir plus d'actualités
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                    <HomeCard
+                        title="Fête de la musique"
+                        description="Recherche de talents pour le 21 juin"
+                        cardSize="small"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                    <HomeCard
+                        title="Fête de la musique"
+                        description="Recherche de talents pour le 21 juin"
+                        cardSize="small"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                    <HomeCard
+                        title="Fête de la musique"
+                        description="Recherche de talents pour le 21 juin"
+                        cardSize="small"
+                    />
+                </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
