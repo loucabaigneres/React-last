@@ -2,6 +2,7 @@ import colors from "../variables";
 
 const franceConnectStyles = {
     container: {
+        width: "100%",
         flex: 1,
         alignItems: "center",
         gap: 60,

@@ -101,20 +101,20 @@ const ProfileStackScreen = () => {
 };
 
 const SondagesStackScreen = () => {
-  return (
-    <SondagesStack.Navigator>
-      <SondagesStack.Screen
-        name="Sondage"
-        component={SurveysScreen}
-        options={{ headerShown: false }}
-      />
-      <SondagesStack.Screen
-        name="Parametres"
-        component={SettingsScreen}
-        options={{ headerShown: false }}
-      />
-    </SondagesStack.Navigator>
-  );
+    return (
+        <SondagesStack.Navigator>
+            <SondagesStack.Screen
+                name="Sondage"
+                component={SurveysScreen}
+                options={{ headerShown: false }}
+            />
+            <SondagesStack.Screen
+                name="Parametres"
+                component={SettingsScreen}
+                options={{ headerShown: false }}
+            />
+        </SondagesStack.Navigator>
+    );
 };
 
 const ProjetsStackScreen = () => {
@@ -154,30 +154,33 @@ const Nav = () => {
               iconName = focused ? "search" : "search-outline";
             }
 
-            return <Ionicons name={iconName} size={25} color={color} />;
-          },
-          tabBarStyle: {
-            backgroundColor: colors.primary,
-            height: 90,
-          },
-          tabBarLabelStyle: {
-            fontSize: 14,
-          },
-          tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: colors.background,
-          tabBarActiveBackgroundColor: colors.background,
-          tabBarShowLabel: false,
-          headerShown: false,
-        })}
-      >
-        <Tab.Screen name="Accueil" component={HomeStackScreen} />
-        <Tab.Screen name="Projets" component={ProjetsStackScreen} />
-        <Tab.Screen name="Agenda" component={AgendaStackScreen} />
-        <Tab.Screen name="Sondages" component={SondagesStackScreen} />
-        <Tab.Screen name="Profil" component={ProfileStackScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+                        return (
+                            <Ionicons name={iconName} size={25} color={color} />
+                        );
+                    },
+                    tabBarHideOnKeyboard: true,
+                    tabBarStyle: {
+                        backgroundColor: colors.primary,
+                        height: 90,
+                    },
+                    tabBarLabelStyle: {
+                        fontSize: 14,
+                    },
+                    tabBarActiveTintColor: colors.primary,
+                    tabBarInactiveTintColor: colors.background,
+                    tabBarActiveBackgroundColor: colors.background,
+                    tabBarShowLabel: false,
+                    headerShown: false,
+                })}
+            >
+                <Tab.Screen name="Accueil" component={HomeStackScreen} />
+                <Tab.Screen name="Projets" component={ProjetsStackScreen} />
+                <Tab.Screen name="Agenda" component={AgendaStackScreen} />
+                <Tab.Screen name="Sondages" component={SondagesStackScreen} />
+                <Tab.Screen name="Profil" component={ProfileStackScreen} />
+            </Tab.Navigator>
+        </NavigationContainer>
+    );
 };
 
 export default Nav;
