@@ -48,7 +48,7 @@ const HomeScreen = () => {
         >
             <Header title="Ma ville" navigation={navigation} />
             <View style={homeStyles.categories}>
-                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                <TouchableOpacity onPress={() => handlePress("Actu")}>
                     <HomeCard
                         title="Fête de la musique"
                         description="Recherche de talents pour le 21 juin"
@@ -57,16 +57,14 @@ const HomeScreen = () => {
                 </TouchableOpacity>
                 <View style={homeStyles.row}>
                     <View style={homeStyles.col}>
-                        <TouchableOpacity onPress={() => handlePress("Events")}>
+                        <TouchableOpacity onPress={() => handlePress("Actu")}>
                             <HomeCard
                                 title="Cambriolages"
                                 description="Quelques conseils..."
                                 cardSize="small"
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => handlePress("Articles")}
-                        >
+                        <TouchableOpacity onPress={() => handlePress("Actu")}>
                             <HomeCard
                                 title="Réaménagement de la rue de l'Église"
                                 description="Amélioration de la circulation"
@@ -82,9 +80,7 @@ const HomeScreen = () => {
                                 cardSize="big"
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => handlePress("Contact")}
-                        >
+                        <TouchableOpacity onPress={() => handlePress("Actu")}>
                             <HomeCard
                                 title="La Ville recrute des animateurs motivés"
                                 description="N'hésitez pas à postuler !"
@@ -103,21 +99,21 @@ const HomeScreen = () => {
                         Voir plus d'actualités
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                <TouchableOpacity onPress={() => handlePress("Actu")}>
                     <HomeCard
                         title="Fête de la musique"
                         description="Recherche de talents pour le 21 juin"
                         cardSize="small"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                <TouchableOpacity onPress={() => handlePress("Actu")}>
                     <HomeCard
                         title="Fête de la musique"
                         description="Recherche de talents pour le 21 juin"
                         cardSize="small"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress("Projects")}>
+                <TouchableOpacity onPress={() => handlePress("Actu")}>
                     <HomeCard
                         title="Fête de la musique"
                         description="Recherche de talents pour le 21 juin"

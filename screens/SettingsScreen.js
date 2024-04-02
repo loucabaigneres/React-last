@@ -62,7 +62,7 @@ const SettingsScreen = ({ navigation }) => {
                         value={areNotificationsEnabled}
                     />
                 </View> */}
-                <View style={styles.setting}>
+                {/* <View style={styles.setting}>
                     <View>
                         <Text style={textStyles.h3}>Contraste élevé</Text>
                         <Text style={textStyles.pBold}>
@@ -76,7 +76,7 @@ const SettingsScreen = ({ navigation }) => {
                         onValueChange={toggleTheme}
                         value={isDarkTheme}
                     />
-                </View>
+                </View> */}
                 <View style={styles.setting}>
                     <View>
                         <Text style={textStyles.h3}>Mode sombre</Text>
@@ -97,13 +97,6 @@ const SettingsScreen = ({ navigation }) => {
                         ios_backgroundColor={colours.light.primary}
                         onValueChange={toggleDarkMode}
                         value={isDarkMode}
-                    />
-                    <Switch
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isDarkTheme ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleTheme}
-                        value={isDarkTheme}
                     />
                 </View>
             </View>
