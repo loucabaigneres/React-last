@@ -1,28 +1,38 @@
-import React, { useState } from "react";
-import { View, Text, Switch, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+    View,
+    Text,
+    Switch,
+    Appearance,
+    useColorScheme,
+    StyleSheet,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { HeaderSecondary } from "../components/Header";
 
+import { colours } from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 
 const SettingsScreen = ({ navigation }) => {
-    // Ajout de deux états pour gérer les options de paramètres
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
-    const [areNotificationsEnabled, setAreNotificationsEnabled] =
-        useState(true);
+    const colorScheme = useColorScheme();
+    const [isDarkMode, setIsDarkMode] = useState(colorScheme === "dark");
 
-    // Fonctions pour basculer les états
-    const toggleTheme = () => setIsDarkTheme((previousState) => !previousState);
-    const toggleNotifications = () =>
-        setAreNotificationsEnabled((previousState) => !previousState);
+    useEffect(() => {
+        const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+            setIsDarkMode(colorScheme === "dark");
+        });
+        return () => subscription.remove();
+    }, []);
 
-    // Styles conditionnels
-    const containerStyle = isDarkTheme
-        ? styles.containerDark
-        : styles.container;
-    const textStyle = isDarkTheme ? styles.textDark : styles.text;
+    const toggleDarkMode = () => {
+        setIsDarkMode((previousState) => !previousState);
+        // Logique supplémentaire pour sauvegarder le mode préféré
+    };
+
+    // const toggleNotifications = () =>
+    //     setAreNotificationsEnabled((previousState) => !previousState);
 
     return (
         <View style={layoutStyles.page}>
@@ -35,7 +45,7 @@ const SettingsScreen = ({ navigation }) => {
             />
             <HeaderSecondary title="Paramètres" />
             <View style={styles.container}>
-                <View style={styles.setting}>
+                {/* <View style={styles.setting}>
                     <View>
                         <Text style={textStyles.h3}>Notifications</Text>
                         <Text style={textStyles.pBold}>
@@ -51,7 +61,7 @@ const SettingsScreen = ({ navigation }) => {
                         onValueChange={toggleNotifications}
                         value={areNotificationsEnabled}
                     />
-                </View>
+                </View> */}
                 <View style={styles.setting}>
                     <View>
                         <Text style={textStyles.h3}>Contraste élevé</Text>
@@ -74,6 +84,20 @@ const SettingsScreen = ({ navigation }) => {
                             Rendre l'interface sombre
                         </Text>
                     </View>
+                    <Switch
+                        trackColor={{
+                            false: colours.light.primary,
+                            true: colours.dark.primary,
+                        }}
+                        thumbColor={
+                            isDarkMode
+                                ? colours.dark.accent
+                                : colours.light.accent
+                        }
+                        ios_backgroundColor={colours.light.primary}
+                        onValueChange={toggleDarkMode}
+                        value={isDarkMode}
+                    />
                     <Switch
                         trackColor={{ false: "#767577", true: "#81b0ff" }}
                         thumbColor={isDarkTheme ? "#f5dd4b" : "#f4f3f4"}

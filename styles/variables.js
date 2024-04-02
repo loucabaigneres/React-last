@@ -2,25 +2,36 @@ const colors = {
     white: "#FFFFFF",
     black: "#000000",
     primary: "#007A9D",
-    secondary: "#??????",
+    secondary: "#F674A2",
+    accent: "#F9A1FA",
     background: "#FFF7FE",
     text: "#03000F",
+    positive: "#2BD264",
+    negative: "#FF5674",
     franceConnect: "#0055A5",
 };
 
-// const colors = {
-//     light: {
-//         primary: "#007a9d",
-//         secondary: "#??????",
-//         background: "#FFF7FE",
-//         text: "#03000F",
-//     },
-//     dark: {
-//         primary: "#007a9d",
-//         secondary: "#??????",
-//         background: "#343a40",
-//         text: "#e9ecef",
-//     },
-// };
+const colours = {
+    light: {
+        primary: "#007A9D",
+        secondary: "#F674A2",
+        accent: "#F9A1FA",
+        background: "#FFF7FE",
+        text: "#03000F",
+        positive: "#2BD264",
+        negative: "#FF5674",
+        franceConnect: "#0055A5",
+    },
+    dark: {
+        primary: "#007A9D",
+        secondary: "#F674A2",
+        accent: "#F9A1FA",
+        background: "#060119",
+        text: "#FFF7FE",
+        positive: "#2BD264",
+        negative: "#FF5674",
+        franceConnect: "#0055A5",
+    },
+};
 
-export default colors;
+export { colors, colours };

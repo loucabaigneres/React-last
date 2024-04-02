@@ -17,7 +17,7 @@ import layoutStyles from "../styles/layoutStyles";
 import textStyles from "../styles/textStyles";
 import { franceConnectButtonStyles } from "../styles/components/buttonStyles";
 import franceConnectStyles from "../styles/screens/franceConnectStyles";
-import colors from "../styles/variables";
+import { colors } from "../styles/variables";
 
 const FranceConnectScreen = () => {
     const route = useRoute();

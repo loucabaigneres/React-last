@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Header } from "../components/Header";
 import HomeCard from "../components/Card";
 
-import colors from "../styles/variables";
+import { colors } from "../styles/variables";
 import layoutStyles from "../styles/layoutStyles";
 import homeStyles from "../styles/screens/homeStyles";
 import textStyles from "../styles/textStyles";

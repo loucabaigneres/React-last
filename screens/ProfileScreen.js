@@ -14,7 +14,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { Header } from "../components/Header";
 
-import colors from "../styles/variables";
+import { colors } from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 import profileStyles from "../styles/screens/profileStyles";

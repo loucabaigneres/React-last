@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import colors from "../styles/variables";
+import { colors } from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import cardStyles from "../styles/components/cardStyles";
 

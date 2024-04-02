@@ -13,7 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Header } from "../components/Header";
 
-import colors from "../styles/variables";
+import { colors } from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 

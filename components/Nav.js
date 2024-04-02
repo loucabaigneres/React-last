@@ -15,7 +15,7 @@ import LoginScreen from "../screens/LoginScreen";
 import ProjectsScreen from "../screens/ProjectsScreen";
 import FranceConnectScreen from "../screens/FranceConnectScreen";
 
-import colors from "../styles/variables";
+import { colors } from "../styles/variables";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();

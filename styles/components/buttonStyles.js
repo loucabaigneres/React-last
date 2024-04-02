@@ -1,4 +1,4 @@
-import colors from "../variables";
+import { colors } from "../variables";
 
 const franceConnectButtonStyles = {
     franceConnectButton: {
@@ -53,8 +53,4 @@ const logoutButtonStyles = {
     elevation: 5,
 };
 
-export {
-    franceConnectButtonStyles,
-    editButtonStyles,
-    logoutButtonStyles,
-};
+export { franceConnectButtonStyles, editButtonStyles, logoutButtonStyles };
