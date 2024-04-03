@@ -7,10 +7,12 @@ import {
     Image,
     TextInput,
     Alert,
+    ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Header } from "../components/Header";
 
@@ -38,6 +40,7 @@ const ProfileScreen = () => {
     const [email, setEmail] = useState("");
     const [originalEmail, setOriginalEmail] = useState("");
     const [isEditing, setIsEditing] = useState(false);
+    const [eventsWithNotifications, setEventsWithNotifications] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -62,6 +65,27 @@ const ProfileScreen = () => {
             setOriginalEmail(route.params.email);
         }
     }, [route.params]);
+
+    useEffect(() => {
+        const retrieveEventsWithNotifications = async () => {
+            try {
+                const storedEvents = await AsyncStorage.getItem("events");
+                if (storedEvents) {
+                    const parsedEvents = JSON.parse(storedEvents);
+                    const filteredEvents = parsedEvents.filter(
+                        (event) => event.pinned && event.notificationEnabled
+                    );
+                    setEventsWithNotifications(filteredEvents);
+                }
+            } catch (error) {
+                console.error("Error retrieving events:", error);
+            }
+        };
+
+        retrieveEventsWithNotifications();
+        const intervalId = setInterval(retrieveEventsWithNotifications, 2000);
+        return () => clearInterval(intervalId);
+    }, []);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -115,7 +139,7 @@ const ProfileScreen = () => {
     };
 
     return (
-        <View style={layoutScreenStyles.page}>
+        <ScrollView contentContainerStyle={layoutScreenStyles.scrollPage}>
             <Header title="Profil" navigation={navigation} />
             <View style={profileStyles.container}>
                 <View style={profileStyles.top}>
@@ -137,8 +161,10 @@ const ProfileScreen = () => {
                             />
                         )}
                     </TouchableOpacity>
-                    <Text style={profileStyles.profilName}>{name}</Text>
-                    <Text style={profileStyles.profilEmail}>{email}</Text>
+                    <View style={styles.profileInfo}>
+                        <Text style={profileStyles.profilName}>{name}</Text>
+                        <Text style={profileStyles.profilEmail}>{email}</Text>
+                    </View>
                 </View>
                 {isEditing ? (
                     <>
@@ -174,29 +200,69 @@ const ProfileScreen = () => {
                             </TouchableOpacity>
                         </View>
                     </>
-                ) : (
-                    <View style={profileStyles.bottom}>
-                        <TouchableOpacity
-                            style={editButtonStyles}
-                            onPress={toggleEditProfile}
-                        >
-                            <Text style={TextStyles.h4Inverted}>
-                                Modifier mon profil
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={logoutButtonStyles}
-                            onPress={logout}
-                        >
-                            <Text style={TextStyles.h4Inverted}>
-                                Déconnexion
-                            </Text>
-                        </TouchableOpacity>
+                ) : null}
+                <View style={profileStyles.bottom}>
+                    <TouchableOpacity
+                        style={logoutButtonStyles}
+                        onPress={logout}
+                    >
+                        <Text style={TextStyles.h4Inverted}>Déconnexion</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.eventsContainer}>
+                <Text style={[TextStyles.h2, styles.pinnedTitle]}>
+                    Vos épinglés
+                </Text>
+                {eventsWithNotifications.length > 0 ? (
+                    <View style={styles.eventsDropdown}>
+                        {eventsWithNotifications.map((event, index) => (
+                            <View key={index} style={styles.eventContainer}>
+                                <Text style={styles.eventText}>
+                                    {event.description}
+                                </Text>
+                            </View>
+                        ))}
                     </View>
+                ) : (
+                    <Text style={styles.noEventsText}>
+                        Aucun événement épinglé
+                    </Text>
                 )}
             </View>
-        </View>
+        </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    profileInfo: {
+        marginLeft: 20,
+    },
+    eventsContainer: {
+        paddingHorizontal: 20,
+        // marginTop: 100,
+    },
+    eventsDropdown: {
+        backgroundColor: "white",
+        borderRadius: 5,
+        padding: 10,
+        // maxHeight: 100,
+    },
+    eventContainer: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "#ddd",
+    },
+    eventText: {
+        color: "black",
+    },
+    noEventsText: {
+        color: "grey",
+        textAlign: "center",
+    },
+    pinnedTitle: {
+        marginBottom: 10,
+    },
+});
 
 export default ProfileScreen;

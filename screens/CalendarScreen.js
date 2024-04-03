@@ -13,6 +13,8 @@ import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Calendar } from "react-native-calendars";
 
+import { Header } from "../components/Header";
+
 import useTheme from "../theme/useTheme";
 import layoutStyles from "../styles/layoutStyles";
 
@@ -49,7 +51,69 @@ const CalendarScreen = ({ navigation }) => {
             notificationEnabled: false,
             isHoliday: true,
         },
-        // Autres événements
+        {
+            date: "2024-05-01",
+            description: "Fête du travail",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-05-08",
+            description: "Victoire 1945",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-05-30",
+            description: "Ascension",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-06-10",
+            description: "Pentecôte",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-07-14",
+            description: "Fête nationale",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-08-15",
+            description: "Assomption",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-11-01",
+            description: "Toussaint",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-11-11",
+            description: "Armistice",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-12-25",
+            description: "Noël",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
     ]);
     const [selectedDate, setSelectedDate] = useState("");
 
@@ -111,6 +175,7 @@ const CalendarScreen = ({ navigation }) => {
 
     return (
         <View style={layoutScreenStyles.page}>
+            <Header title="Calendrier" navigation={navigation} />
             <View style={styles.container}>
                 <View style={styles.calendarContainer}>
                     <Calendar
