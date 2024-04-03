@@ -21,6 +21,7 @@ const LoginScreen = () => {
     const colours = useTheme();
     const TextStyles = textStyles(colours);
     const layoutScreenStyles = layoutStyles(colours);
+    const loginScreenStyles = loginStyles(colours);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -58,14 +59,14 @@ const LoginScreen = () => {
     return (
         <View style={layoutScreenStyles.page}>
             <HeaderSecondary title={"Connexion"} />
-            <View style={loginStyles.container}>
+            <View style={loginScreenStyles.container}>
                 <Image
                     source={require("../assets/franceConnect.png")}
-                    style={loginStyles.loginImage}
+                    style={loginScreenStyles.loginImage}
                 />
-                <View style={loginStyles.form}>
+                <View style={loginScreenStyles.form}>
                     <TextInput
-                        style={loginStyles.input}
+                        style={loginScreenStyles.input}
                         placeholder="Email"
                         value={email}
                         onChangeText={setEmail}
@@ -73,14 +74,14 @@ const LoginScreen = () => {
                         keyboardType="email-address"
                     />
                     <TextInput
-                        style={loginStyles.input}
+                        style={loginScreenStyles.input}
                         placeholder="Nom"
                         value={name}
                         onChangeText={setName}
                         autoCapitalize="words"
                     />
                     <TextInput
-                        style={loginStyles.input}
+                        style={loginScreenStyles.input}
                         placeholder="Mot de passe"
                         value={password}
                         onChangeText={setPassword}
@@ -88,7 +89,7 @@ const LoginScreen = () => {
                     />
                     <TouchableOpacity
                         onPress={handleLogin}
-                        style={loginStyles.loginButton}
+                        style={loginScreenStyles.loginButton}
                     >
                         <Text style={TextStyles.h4Inverted}>Se connecter</Text>
                     </TouchableOpacity>

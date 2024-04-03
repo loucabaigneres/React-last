@@ -1,6 +1,6 @@
 import colors from "../variables";
 
-const loginStyles = {
+const loginStyles = (colours) => ({
     container: {
         width: "100%",
         flex: 1,
@@ -20,7 +20,7 @@ const loginStyles = {
     input: {
         width: "100%",
         borderWidth: 2,
-        borderColor: colors.black,
+        borderColor: colours.text,
         paddingHorizontal: 20,
         paddingVertical: 12,
         borderRadius: 4,
@@ -33,6 +33,6 @@ const loginStyles = {
         borderRadius: 4,
         marginTop: 24,
     },
-};
+});
 
 export default loginStyles;

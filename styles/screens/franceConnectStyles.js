@@ -36,6 +36,7 @@ const franceConnectStyles = (colours) => ({
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 1,
+        borderBottomColor: colours.text,
         gap: 5,
     },
 });
