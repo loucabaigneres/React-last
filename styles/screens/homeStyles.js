@@ -1,6 +1,4 @@
-import { colors } from "../variables";
-
-const homeStyles = {
+const homeStyles = (colours) => ({
     categories: {
         width: "100%",
         gap: 12,
@@ -20,10 +18,10 @@ const homeStyles = {
         justifyContent: "center",
         alignItems: "center",
         gap: 8,
-        backgroundColor: colors.primary,
+        backgroundColor: colours.primary,
         paddingVertical: 8,
         borderRadius: 8,
     },
-};
+});
 
 export default homeStyles;

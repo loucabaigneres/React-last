@@ -12,33 +12,21 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { HeaderSecondary } from "../components/Header";
 
+import useTheme from "../theme/useTheme";
 import layoutStyles from "../styles/layoutStyles";
 
 const ContactScreen = ({ navigation }) => {
-    // Ajout de deux états pour gérer les options de paramètres
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
-    const [areNotificationsEnabled, setAreNotificationsEnabled] =
-        useState(true);
-
-    // Fonctions pour basculer les états
-    const toggleTheme = () => setIsDarkTheme((previousState) => !previousState);
-    const toggleNotifications = () =>
-        setAreNotificationsEnabled((previousState) => !previousState);
-
-    // Styles conditionnels
-    const containerStyle = isDarkTheme
-        ? styles.containerDark
-        : styles.container;
-    const textStyle = isDarkTheme ? styles.textDark : styles.text;
+    const colours = useTheme();
+    const layoutScreenStyles = layoutStyles(colours);
 
     const [selectedValue, setSelectedValue] = React.useState("void");
 
     return (
-        <View style={layoutStyles.page}>
+        <View style={layoutScreenStyles.page}>
             <Ionicons
                 name="arrow-back"
                 size={32}
-                color="#000"
+                color={colours.text}
                 style={styles.back}
                 onPress={() => navigation.goBack()}
             />
@@ -112,21 +100,10 @@ const styles = StyleSheet.create({
     formStyle: {
         marginBottom: 10,
     },
-    titleContact: {
-        fontSize: 32,
-        fontWeight: "800",
-        color: "#000",
-        marginBottom: 30,
-    },
     back: {
         position: "absolute",
         top: 48,
         left: 24,
-    },
-    h3: {
-        fontSize: 18,
-        fontWeight: "800",
-        color: "#fff",
     },
     category: {
         backgroundColor: "transparent",

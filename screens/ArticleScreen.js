@@ -1,30 +1,21 @@
-import {
-<<<<<<< HEAD
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  Linking,
-=======
-    ScrollView,
-    View,
-    Text,
-    TouchableOpacity,
-    Linking,
->>>>>>> 5d81040f1cbe4461fb2ddf183369de8867096035
-} from "react-native";
+import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header } from "../components/Header";
+import { HeaderSecondary } from "../components/Header";
 import HomeCard from "../components/Card";
 
-import { colors } from "../styles/variables";
+import useTheme from "../theme/useTheme";
+import colors from "../styles/variables";
 import layoutStyles from "../styles/layoutStyles";
 import homeStyles from "../styles/screens/homeStyles";
 import textStyles from "../styles/textStyles";
 
 const ArticleScreen = () => {
+    const colours = useTheme();
+    const TextStyles = textStyles(colours);
+    const layoutScreenStyles = layoutStyles(colours);
+
     const navigation = useNavigation();
 
     const handlePress = (category) => {
@@ -51,10 +42,20 @@ const ArticleScreen = () => {
 
     return (
         <ScrollView
-            contentContainerStyle={layoutStyles.scrollPage}
+            contentContainerStyle={layoutScreenStyles.scrollPage}
             showsVerticalScrollIndicator={false}
         >
-            <Header title="Fête de la musique" navigation={navigation} />
+            <Ionicons
+                name="arrow-back"
+                size={32}
+                color={colours.text}
+                style={styles.back}
+                onPress={() => navigation.goBack()}
+            />
+            <HeaderSecondary
+                title="Fête de la musique"
+                navigation={navigation}
+            />
             <View style={homeStyles.categories}>
                 <TouchableOpacity onPress={() => handlePress("Actu")}>
                     <HomeCard
@@ -63,15 +64,15 @@ const ArticleScreen = () => {
                         cardSize="small"
                     />
                 </TouchableOpacity>
-                <Text>
+                <Text style={TextStyles.p}>
                     Recherche de talents pour le 21 juin ! Dans le cadre de la
                     fête de la musique, la ville d’Antony propose aux groupes
                     amateurs d’Antony et des communes voisines, de se produire
                     gracieusementà la salle club de Vasarely et au mail Robert
                     Doisneau le vendredi 21 juin à partir de 17h. {"\n"} {"\n"}
                 </Text>
-                <Text style={textStyles.pBold}>Sélection {"\n"}</Text>
-                <Text>
+                <Text style={TextStyles.h4}>Sélection {"\n"}</Text>
+                <Text style={TextStyles.p}>
                     La sélection s’effectuera sur écoute à partir des supports
                     envoyés (cf. 4) par un jury composé de membres du Conseil
                     des Jeunes Citoyens et de représentants du service culturel,
@@ -81,9 +82,9 @@ const ArticleScreen = () => {
                     retenus pour participer aux concerts du 21 juin. {"\n"}{" "}
                     {"\n"}
                 </Text>
-                <Text style={textStyles.pBold}>Inscriptions{"\n"}</Text>
+                <Text style={TextStyles.h4}>Inscriptions{"\n"}</Text>
 
-                <Text>
+                <Text style={TextStyles.p}>
                     {" "}
                     Récupérez sur l'espace citoyen votre formulaire en ligne en
                     cliquant ici. Des liens audio / vidéo HD qui renvoient vers
@@ -106,9 +107,9 @@ const ArticleScreen = () => {
                     }{" "}
                     {"\n"}
                 </Text>
-                <Text style={textStyles.pBold}>Matériel fourni {"\n"} </Text>
+                <Text style={TextStyles.h4}>Matériel fourni {"\n"} </Text>
 
-                <Text>
+                <Text style={TextStyles.p}>
                     La Ville fournit lors de ces concerts une sonorisation, du
                     backline (Batterie : Yamaha Stage Custom avec Cymbales
                     Zildjian K series, Ampli Basse : Ampeg SVT 7 PRO avec Ampeg
@@ -122,3 +123,11 @@ const ArticleScreen = () => {
 };
 
 export default ArticleScreen;
+
+const styles = {
+    back: {
+        position: "absolute",
+        top: 48,
+        left: 24,
+    },
+};

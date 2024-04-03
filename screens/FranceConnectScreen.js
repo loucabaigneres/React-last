@@ -13,15 +13,21 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { HeaderSecondary } from "../components/Header";
 
+import useTheme from "../theme/useTheme";
 import layoutStyles from "../styles/layoutStyles";
 import textStyles from "../styles/textStyles";
 import { franceConnectButtonStyles } from "../styles/components/buttonStyles";
 import franceConnectStyles from "../styles/screens/franceConnectStyles";
-import { colors } from "../styles/variables";
+import colors from "../styles/variables";
 
 const FranceConnectScreen = () => {
     const route = useRoute();
     const navigation = useNavigation();
+
+    const colours = useTheme();
+    const TextStyles = textStyles(colours);
+    const layoutScreenStyles = layoutStyles(colours);
+    const FranceConnectStyles = franceConnectStyles(colours);
 
     const goToLogIn = () => {
         navigation.navigate("Login"); // Redirection vers la page des paramètres
@@ -32,24 +38,24 @@ const FranceConnectScreen = () => {
     };
 
     return (
-        <View style={layoutStyles.page}>
+        <View style={layoutScreenStyles.page}>
             <HeaderSecondary title="Connexion" />
-            <View style={franceConnectStyles.container}>
-                <View style={franceConnectStyles.top}>
-                    <View style={franceConnectStyles.profil}>
+            <View style={FranceConnectStyles.container}>
+                <View style={FranceConnectStyles.top}>
+                    <View style={FranceConnectStyles.profil}>
                         <Ionicons
                             name="help-outline"
                             size={100}
-                            color={colors.background}
+                            color={colours.background}
                         />
                     </View>
-                    <Text style={textStyles.h2}>Utilisateur</Text>
-                    <Text style={textStyles.h4}>
+                    <Text style={TextStyles.h2}>Utilisateur</Text>
+                    <Text style={TextStyles.h4}>
                         Connectez-vous pour accéder à toutes les
                         fonctionnalités.
                     </Text>
                 </View>
-                <View style={franceConnectStyles.bottom}>
+                <View style={FranceConnectStyles.bottom}>
                     <TouchableOpacity
                         style={franceConnectButtonStyles.franceConnectButton}
                         onPress={goToLogIn}
@@ -63,25 +69,25 @@ const FranceConnectScreen = () => {
                                 franceConnectButtonStyles.buttonTextContainer
                             }
                         >
-                            <Text style={textStyles.pInverted}>
+                            <Text style={styles.pInverted}>
                                 S'identifier avec
                             </Text>
-                            <Text style={textStyles.pBoldInverted}>
+                            <Text style={styles.pBoldInverted}>
                                 FranceConnect
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={franceConnectStyles.link}
+                        style={FranceConnectStyles.link}
                         onPress={goToFranceConnect}
                     >
-                        <Text style={textStyles.p}>
+                        <Text style={TextStyles.p}>
                             Qu'est-ce que FranceConnect ?
                         </Text>
                         <Ionicons
                             name="arrow-redo-circle-outline"
                             size={16}
-                            color={colors.text}
+                            color={colours.text}
                         />
                     </TouchableOpacity>
                 </View>
@@ -91,3 +97,17 @@ const FranceConnectScreen = () => {
 };
 
 export default FranceConnectScreen;
+
+const styles = StyleSheet.create({
+    pInverted: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: colors.background,
+    },
+    pBoldInverted: {
+        fontSize: 16,
+        fontWeight: "700",
+        lineHeight: 24,
+        color: colors.background,
+    },
+});

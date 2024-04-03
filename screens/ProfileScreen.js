@@ -14,7 +14,8 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { Header } from "../components/Header";
 
-import { colors } from "../styles/variables";
+import useTheme from "../theme/useTheme";
+import colors from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 import profileStyles from "../styles/screens/profileStyles";
@@ -24,6 +25,10 @@ import {
 } from "../styles/components/buttonStyles";
 
 const ProfileScreen = () => {
+    const colours = useTheme();
+    const TextStyles = textStyles(colours);
+    const layoutScreenStyles = layoutStyles(colours);
+
     const route = useRoute();
     const navigation = useNavigation();
     const [profileImage, setProfileImage] = useState(null);
@@ -110,7 +115,7 @@ const ProfileScreen = () => {
     };
 
     return (
-        <View style={layoutStyles.page}>
+        <View style={layoutScreenStyles.page}>
             <Header title="Profil" navigation={navigation} />
             <View style={profileStyles.container}>
                 <View style={profileStyles.top}>
@@ -175,7 +180,7 @@ const ProfileScreen = () => {
                             style={editButtonStyles}
                             onPress={toggleEditProfile}
                         >
-                            <Text style={textStyles.h4Inverted}>
+                            <Text style={TextStyles.h4Inverted}>
                                 Modifier mon profil
                             </Text>
                         </TouchableOpacity>
@@ -183,7 +188,7 @@ const ProfileScreen = () => {
                             style={logoutButtonStyles}
                             onPress={logout}
                         >
-                            <Text style={textStyles.h4Inverted}>
+                            <Text style={TextStyles.h4Inverted}>
                                 Déconnexion
                             </Text>
                         </TouchableOpacity>

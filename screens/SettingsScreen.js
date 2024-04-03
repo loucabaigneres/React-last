@@ -1,54 +1,45 @@
-import React, { useState, useEffect } from "react";
-import {
-    View,
-    Text,
-    Switch,
-    Appearance,
-    useColorScheme,
-    StyleSheet,
-} from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, Switch, StyleSheet } from "react-native";
+import { EventRegister } from "react-native-event-listeners";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+import themeContext from "../theme/themeContext";
 
 import { HeaderSecondary } from "../components/Header";
 
-import { colours } from "../styles/variables";
+import useTheme from "../theme/useTheme";
+import colors from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 
 const SettingsScreen = ({ navigation }) => {
-    const colorScheme = useColorScheme();
-    const [isDarkMode, setIsDarkMode] = useState(colorScheme === "dark");
+    const theme = useContext(themeContext);
+    const [darkMode, setDarkMode] = useState(false);
 
-    useEffect(() => {
-        const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-            setIsDarkMode(colorScheme === "dark");
-        });
-        return () => subscription.remove();
-    }, []);
+    const [areNotificationsEnabled, setAreNotificationsEnabled] =
+        useState(true);
+    const toggleNotifications = () =>
+        setAreNotificationsEnabled((previousState) => !previousState);
 
-    const toggleDarkMode = () => {
-        setIsDarkMode((previousState) => !previousState);
-        // Logique supplémentaire pour sauvegarder le mode préféré
-    };
-
-    // const toggleNotifications = () =>
-    //     setAreNotificationsEnabled((previousState) => !previousState);
+    const colours = useTheme();
+    const TextStyles = textStyles(colours);
+    const layoutScreenStyles = layoutStyles(colours);
 
     return (
-        <View style={layoutStyles.page}>
+        <View style={layoutScreenStyles.page}>
             <Ionicons
                 name="arrow-back"
                 size={32}
-                color="#000"
+                color={colours.text}
                 style={styles.back}
                 onPress={() => navigation.goBack()}
             />
             <HeaderSecondary title="Paramètres" />
             <View style={styles.container}>
-                {/* <View style={styles.setting}>
+                <View style={styles.setting}>
                     <View>
-                        <Text style={textStyles.h3}>Notifications</Text>
-                        <Text style={textStyles.pBold}>
+                        <Text style={TextStyles.h3}>Notifications</Text>
+                        <Text style={TextStyles.pBold}>
                             Pour vos événements épinglés
                         </Text>
                     </View>
@@ -61,42 +52,35 @@ const SettingsScreen = ({ navigation }) => {
                         onValueChange={toggleNotifications}
                         value={areNotificationsEnabled}
                     />
-                </View> */}
-                {/* <View style={styles.setting}>
+                </View>
+                <View style={styles.setting}>
                     <View>
-                        <Text style={textStyles.h3}>Contraste élevé</Text>
-                        <Text style={textStyles.pBold}>
+                        <Text style={TextStyles.h3}>Contraste élevé</Text>
+                        <Text style={TextStyles.pBold}>
                             Rendre l'interface plus accessible
                         </Text>
                     </View>
                     <Switch
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isDarkTheme ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleTheme}
-                        value={isDarkTheme}
+                        // value={darkMode}
+                        // onValueChange={(value) => {
+                        //     setDarkMode(value);
+                        //     EventRegister.emit("changeTheme", value);
+                        // }}
                     />
-                </View> */}
+                </View>
                 <View style={styles.setting}>
                     <View>
-                        <Text style={textStyles.h3}>Mode sombre</Text>
-                        <Text style={textStyles.pBold}>
+                        <Text style={TextStyles.h3}>Mode sombre</Text>
+                        <Text style={TextStyles.pBold}>
                             Rendre l'interface sombre
                         </Text>
                     </View>
                     <Switch
-                        trackColor={{
-                            false: colours.light.primary,
-                            true: colours.dark.primary,
+                        value={darkMode}
+                        onValueChange={(value) => {
+                            setDarkMode(value);
+                            EventRegister.emit("changeTheme", value);
                         }}
-                        thumbColor={
-                            isDarkMode
-                                ? colours.dark.accent
-                                : colours.light.accent
-                        }
-                        ios_backgroundColor={colours.light.primary}
-                        onValueChange={toggleDarkMode}
-                        value={isDarkMode}
                     />
                 </View>
             </View>
@@ -114,24 +98,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         paddingHorizontal: 16,
-    },
-    containerDark: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#333333", // Couleur de fond sombre
-    },
-    title: {
-        fontSize: 22,
-        marginBottom: 20,
-    },
-    text: {
-        fontSize: 18,
-        color: "#000000", // Couleur du texte clair
-    },
-    textDark: {
-        fontSize: 18,
-        color: "#FFFFFF", // Couleur du texte sombre
     },
     setting: {
         flexDirection: "row",

@@ -1,6 +1,4 @@
-import { colors } from "../variables";
-
-const headerStyles = {
+const headerStyles = (colours) => ({
     header: {
         width: "100%",
         flexDirection: "row",
@@ -18,8 +16,8 @@ const headerStyles = {
         gap: 12,
     },
     headerIcon: {
-        color: colors.text,
+        color: colours.text,
     },
-};
+});
 
 export default headerStyles;

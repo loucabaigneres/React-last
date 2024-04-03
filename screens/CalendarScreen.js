@@ -1,139 +1,188 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, Button, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+    View,
+    StyleSheet,
+    Text,
+    ScrollView,
+    TouchableOpacity,
+    Button,
+    Alert,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import moment from "moment";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Calendar } from "react-native-calendars";
-import {Header} from "../components/Header";
 
-const CalendarScreen = ({navigation}) => {
-  const [events, setEvents] = useState({
-    "2024-03-06": ["PSG a joué son 8eme de final de LDC"],
-    "2024-01-01": ["Jour de l'an"],
-    "2024-04-01": ["Lundi de Pâques"],
-    "2024-05-01": ["Fête du travail"],
-    "2024-05-08": ["Victoire 1945"],
-    "2024-05-30": ["Ascension"],
-    "2024-06-09": ["Pentecôte"],
-    "2024-07-14": ["Fête nationale"],
-    "2024-08-15": ["Assomption"],
-    "2024-11-01": ["Toussaint"],
-    "2024-11-11": ["Armistice 1918"],
-    "2024-12-25": ["Noël"],
-  });
-  const [selectedDate, setSelectedDate] = useState("");
+import useTheme from "../theme/useTheme";
+import layoutStyles from "../styles/layoutStyles";
 
-  const handleDayPress = (day) => {
-    setSelectedDate(day.dateString);
-  };
+const colors = {
+    primary: "#0000FF", // Bleu pour les événements
+    secondary: "#FF0000", // Rouge pour les jours fériés
+    background: "#FFF",
+    grayText: "#2d4150",
+};
 
-  const scheduleNotification = (date) => {
-    if (events[date]) {
-      // Ici, intégrez la logique de programmation de la notification réelle
-      Alert.alert(
-        "Notification programmée",
-        `Une notification pour les événements du ${date} a été programmée.`
-      );
-    } else {
-      Alert.alert(
-        "Aucun événement",
-        `Il n'y a pas d'événement à notifier pour cette date.`
-      );
-    }
-  };
+const CalendarScreen = ({ navigation }) => {
+    const colours = useTheme();
+    const layoutScreenStyles = layoutStyles(colours);
 
-  const markedDates = Object.keys(events).reduce((acc, curr) => {
-    acc[curr] = { marked: true, dotColor: "red", activeOpacity: 0 };
-    return acc;
-  }, {});
+    const [events, setEvents] = useState([
+        {
+            date: "2024-03-06",
+            description: "PSG a joué son 8eme de final de LDC",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: false,
+        },
+        {
+            date: "2024-01-01",
+            description: "Jour de l'an",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        {
+            date: "2024-04-01",
+            description: "Lundi de Pâques",
+            pinned: false,
+            notificationEnabled: false,
+            isHoliday: true,
+        },
+        // Autres événements
+    ]);
+    const [selectedDate, setSelectedDate] = useState("");
 
-  if (selectedDate) {
-    markedDates[selectedDate] = {
-      ...markedDates[selectedDate],
-      selected: true,
-      selectedColor: "blue",
+    const handleDayPress = (day) => {
+        setSelectedDate(day.dateString);
     };
-  }
 
-  return (
-    <View style={styles.page}>
-      <Header title="Calendrier" navigation={navigation} />
-      <View style={styles.container}>
-        <View style={styles.calendarContainer}>
-          <Calendar
-            style={styles.calendar}
-            theme={{}}
-            markedDates={markedDates}
-            onDayPress={handleDayPress}
-          />
+    const togglePin = async (date) => {
+        const updatedEvents = events.map((event) =>
+            event.date === date
+                ? {
+                      ...event,
+                      pinned: !event.pinned,
+                      notificationEnabled: !event.notificationEnabled,
+                  }
+                : event
+        );
+        setEvents(updatedEvents);
+
+        try {
+            await AsyncStorage.setItem("events", JSON.stringify(updatedEvents));
+        } catch (error) {
+            console.error("Error storing events:", error);
+        }
+    };
+
+    const renderEventsWithNotifications = () => {
+        const selectedEvent = events.find(
+            (event) => event.date === selectedDate
+        );
+        if (!selectedEvent) return null;
+
+        return (
+            <View style={styles.eventContainer}>
+                <Text style={styles.eventText}>
+                    {selectedEvent.description}
+                </Text>
+                <TouchableOpacity
+                    onPress={() => togglePin(selectedDate)}
+                    style={styles.pinButton}
+                >
+                    <AntDesign
+                        name={selectedEvent.pinned ? "pushpin" : "pushpino"}
+                        size={24}
+                        color={selectedEvent.pinned ? "#FF0000" : "#000000"}
+                    />
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+    const markedDates = {};
+    events.forEach((event) => {
+        markedDates[event.date] = {
+            marked: true,
+            dotColor: event.isHoliday ? colors.secondary : colors.primary, // Utilisation de la couleur rouge pour les jours fériés et bleue pour les autres événements
+        };
+    });
+
+    return (
+        <View style={layoutScreenStyles.page}>
+            <View style={styles.container}>
+                <View style={styles.calendarContainer}>
+                    <Calendar
+                        style={styles.calendar}
+                        theme={{}}
+                        onDayPress={handleDayPress}
+                        markedDates={markedDates}
+                    />
+                </View>
+                <ScrollView contentContainerStyle={styles.upcomingEvents}>
+                    <Text style={styles.upcomingEventsText}>
+                        {selectedDate
+                            ? "Événement sélectionné :"
+                            : "Aucun événement sélectionné"}
+                    </Text>
+                    {renderEventsWithNotifications()}
+                </ScrollView>
+            </View>
         </View>
-        <View style={styles.upcomingEvents}>
-          <Text style={styles.upcomingEventsText}>
-            {events[selectedDate]
-              ? events[selectedDate].join("\n")
-              : "Aucun événement à venir"}
-          </Text>
-          {events[selectedDate] && (
-            <Button
-              title="Ajouter notification"
-              onPress={() => scheduleNotification(selectedDate)}
-            />
-          )}
-        </View>
-      </View>
-    </View>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: "#FFF7FE",
-    paddingTop: 48,
-    paddingHorizontal: 24,
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  header: {
-    color: "#FFFFFF", // Texte blanc pour contraster avec l'arrière-plan foncé
-    fontSize: 24,
-    fontWeight: "600", // 600 pour un effet gras mais moins lourd que 'bold'
-  },
-  calendarContainer: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#FFFFFF", // Arrière-plan blanc pour faire ressortir le calendrier
-    borderRadius: 16, // Bordures plus arrondies pour une apparence douce
-    marginHorizontal: 10, // Ajout d'une marge horizontale pour l'aération
-    shadowColor: "#000", // Ombres pour la profondeur
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  calendar: {
-    borderRadius: 8, // Cohérence des bordures arrondies avec le conteneur
-  },
-  upcomingEvents: {
-    marginHorizontal: 20,
-    marginTop: 20, // Ajout d'un espace au-dessus de la section des événements à venir
-    padding: 20,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 8,
-    shadowColor: "#000", // Même style d'ombre que le conteneur du calendrier
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  upcomingEventsText: {
-    color: "#2d4150",
-    fontSize: 16,
-    fontWeight: "400", // Moins de gras pour un texte plus lisible
-    textAlign: "center",
-    marginBottom: 20,
-  },
+    container: {
+        flex: 1,
+        padding: 20,
+    },
+    calendarContainer: {
+        marginBottom: 20,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 8,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    calendar: {
+        borderRadius: 8,
+    },
+    upcomingEvents: {
+        marginTop: 20,
+        padding: 20,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 8,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    upcomingEventsText: {
+        color: colors.primary,
+        fontSize: 16,
+        fontWeight: "400",
+        textAlign: "center",
+        marginBottom: 20,
+    },
+    eventContainer: {
+        marginBottom: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+    eventText: {
+        flex: 1,
+        fontSize: 16,
+        color: colors.primary,
+    },
+    pinButton: {
+        marginLeft: 10,
+    },
 });
 
 export default CalendarScreen;

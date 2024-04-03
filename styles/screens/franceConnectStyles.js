@@ -1,6 +1,6 @@
-import { colors } from "../variables";
+import colors from "../variables";
 
-const franceConnectStyles = {
+const franceConnectStyles = (colours) => ({
     container: {
         width: "100%",
         flex: 1,
@@ -15,7 +15,7 @@ const franceConnectStyles = {
         width: 120,
         height: 120,
         borderRadius: 60,
-        backgroundColor: colors.black,
+        backgroundColor: colours.text,
         marginBottom: 24,
         justifyContent: "center",
         alignItems: "center",
@@ -38,6 +38,6 @@ const franceConnectStyles = {
         borderBottomWidth: 1,
         gap: 5,
     },
-};
+});
 
 export default franceConnectStyles;

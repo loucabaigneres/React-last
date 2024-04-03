@@ -12,11 +12,16 @@ import { useNavigation } from "@react-navigation/native";
 
 import { HeaderSecondary } from "../components/Header";
 
+import useTheme from "../theme/useTheme";
 import layoutStyles from "../styles/layoutStyles";
 import textStyles from "../styles/textStyles";
 import loginStyles from "../styles/screens/loginStyles";
 
 const LoginScreen = () => {
+    const colours = useTheme();
+    const TextStyles = textStyles(colours);
+    const layoutScreenStyles = layoutStyles(colours);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -51,7 +56,7 @@ const LoginScreen = () => {
     };
 
     return (
-        <View style={layoutStyles.page}>
+        <View style={layoutScreenStyles.page}>
             <HeaderSecondary title={"Connexion"} />
             <View style={loginStyles.container}>
                 <Image
@@ -85,7 +90,7 @@ const LoginScreen = () => {
                         onPress={handleLogin}
                         style={loginStyles.loginButton}
                     >
-                        <Text style={textStyles.h4Inverted}>Se connecter</Text>
+                        <Text style={TextStyles.h4Inverted}>Se connecter</Text>
                     </TouchableOpacity>
                 </View>
             </View>

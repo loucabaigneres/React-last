@@ -1,21 +1,27 @@
+import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import useTheme from "../theme/useTheme";
 import textStyles from "../styles/textStyles";
 import headerStyles from "../styles/components/headerStyles";
 
 const Header = ({ title, navigation }) => {
+    const colours = useTheme();
+    const HeaderStyles = headerStyles(colours);
+    const TextStyles = textStyles(colours);
+
     return (
-        <View style={headerStyles.header}>
-            <Text style={textStyles.h1}>{title}</Text>
-            <View style={headerStyles.row}>
+        <View style={HeaderStyles.header}>
+            <Text style={TextStyles.h1}>{title}</Text>
+            <View style={HeaderStyles.row}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("Contact")}
                 >
                     <Ionicons
                         name={"person-add"}
                         size={32}
-                        style={headerStyles.headerIcon}
+                        style={HeaderStyles.headerIcon}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -24,7 +30,7 @@ const Header = ({ title, navigation }) => {
                     <Ionicons
                         name={"settings"}
                         size={32}
-                        style={headerStyles.headerIcon}
+                        style={HeaderStyles.headerIcon}
                     />
                 </TouchableOpacity>
             </View>
@@ -33,9 +39,13 @@ const Header = ({ title, navigation }) => {
 };
 
 const HeaderSecondary = ({ title }) => {
+    const colours = useTheme();
+    const HeaderStyles = headerStyles(colours);
+    const TextStyles = textStyles(colours);
+
     return (
-        <View style={headerStyles.headerSecondary}>
-            <Text style={textStyles.h1}>{title}</Text>
+        <View style={HeaderStyles.headerSecondary}>
+            <Text style={TextStyles.h1}>{title}</Text>
         </View>
     );
 };

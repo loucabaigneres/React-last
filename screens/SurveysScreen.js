@@ -13,7 +13,8 @@ import { Header } from "../components/Header";
 import Modal from "react-native-modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { colors } from "../styles/variables";
+import useTheme from "../theme/useTheme";
+import colors from "../styles/variables";
 import textStyles from "../styles/textStyles";
 import layoutStyles from "../styles/layoutStyles";
 const createSurvey = (id, question, description) => ({
@@ -43,6 +44,10 @@ const initialSurveys = [
 ];
 
 const SurveysApp = ({ navigation }) => {
+    const colours = useTheme();
+    const TextStyles = textStyles(colours);
+    const layoutScreenStyles = layoutStyles(colours);
+
     const [surveys, setSurveys] = useState(initialSurveys);
     const [votedSurveys, setVotedSurveys] = useState([]);
     const [expandedSurvey, setExpandedSurvey] = useState(null);
@@ -116,7 +121,7 @@ const SurveysApp = ({ navigation }) => {
     };
 
     return (
-        <ScrollView contentContainerStyle={layoutStyles.scrollPage}>
+        <ScrollView contentContainerStyle={layoutScreenStyles.scrollPage}>
             <Modal isVisible={isFormVisible}>
                 <View style={styles.category}>
                     <View style={styles.containerInput}>
@@ -163,9 +168,7 @@ const SurveysApp = ({ navigation }) => {
                     <View style={styles.iconContainer}>
                         <Ionicons name="add" size={24} color="#F674A2" />
                     </View>
-                    <Text style={textStyles.pBoldInverted}>
-                        Proposer un projet
-                    </Text>
+                    <Text style={styles.pBold}>Proposer un projet</Text>
                 </TouchableOpacity>
 
                 {surveys.map((survey) => (
@@ -278,12 +281,11 @@ const SurveysApp = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    page: {
-        flex: 1,
-        backgroundColor: "#FFF7FE",
-        paddingTop: 96,
-        padding: 24,
-        gap: 48,
+    pBold: {
+        fontSize: 16,
+        fontWeight: "700",
+        lineHeight: 24,
+        color: "#FFF7FE",
     },
     containerInput: {
         gap: 12,

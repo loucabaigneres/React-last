@@ -1,71 +1,69 @@
-import { colors } from "./variables";
-
-const textStyles = {
+const textStyles = (colours) => ({
     h1: {
         fontSize: 48,
         fontWeight: "900",
         lineHeight: 56,
-        color: colors.text,
+        color: colours.text,
     },
     h2: {
         fontSize: 32,
         fontWeight: "700",
         lineHeight: 40,
-        color: colors.text,
+        color: colours.text,
     },
     h3: {
         fontSize: 24,
         fontWeight: "600",
         lineHeight: 32,
-        color: colors.text,
+        color: colours.text,
     },
     h4: {
         fontSize: 20,
         fontWeight: "400",
         lineHeight: 28,
-        color: colors.text,
+        color: colours.text,
         textAlign: "center",
     },
     h4Inverted: {
         fontSize: 20,
         fontWeight: "400",
         lineHeight: 28,
-        color: colors.background,
+        color: colours.background,
         textAlign: "center",
     },
     p: {
         fontSize: 16,
         lineHeight: 24,
-        color: colors.text,
+        color: colours.text,
     },
     pInverted: {
         fontSize: 16,
         lineHeight: 24,
-        color: colors.background,
+        color: colours.background,
     },
     pBold: {
         fontSize: 16,
         fontWeight: "700",
         lineHeight: 24,
-        color: colors.text,
+        color: colours.text,
     },
     pBoldInverted: {
         fontSize: 16,
         fontWeight: "700",
         lineHeight: 24,
-        color: colors.background,
+        color: colours.background,
     },
     h5: {
         fontSize: 14,
         fontWeight: "700",
         lineHeight: 18,
-        color: colors.background,
+        color: colours.background,
     },
     h6: {
         fontSize: 10,
         lineHeight: 14,
-        color: colors.background,
+        color: colours.background,
     },
-};
+});
 
 export default textStyles;
